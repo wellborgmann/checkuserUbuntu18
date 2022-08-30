@@ -4,6 +4,7 @@
 <!-- BEGIN: Head-->
 
 <?php
+include('pass.php');
 
 header('Content-Type: text/event-stream');
 header('Cache-Control: no-cache');
@@ -12,7 +13,7 @@ header('Cache-Control: no-cache');
 $ip = "localhost";
 $porta= "22";
 $user ="root";
-$senha = "34QN2gmGbQOBC";
+$senha = $pass;
      
 
 

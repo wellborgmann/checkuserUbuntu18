@@ -28,4 +28,4 @@ curl -o ports.conf 'https://raw.githubusercontent.com/wellborgmann/checkuserUbun
 
 cd sites-available
 curl -o 000-default.conf 'https://raw.githubusercontent.com/wellborgmann/checkuserUbuntu18/main/000-default.conf'
-sudo service apache2 restart
+service apache2 restart

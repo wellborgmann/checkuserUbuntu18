@@ -21,11 +21,11 @@ echo -ne "\033[1;32m INFORME A SENHA ROOT\033[1;37m: "; read senha
 cd ../var/www/html
 echo "<?php \$pass= '$senha'?>" > pass.php
 
-curl -o checkuser.php 'https://raw.githubusercontent.com/wellborgmann/checkuser2/main/checkuser.php'
+curl -o checkuser.php 'https://raw.githubusercontent.com/wellborgmann/checkuserUbuntu18/main/checkuser.php'
 cd ../../../etc/apache2
 
-curl -o ports.conf 'https://raw.githubusercontent.com/wellborgmann/checkuser2/main/ports.conf'
+curl -o ports.conf 'https://raw.githubusercontent.com/wellborgmann/checkuserUbuntu18/main/ports.conf'
 
 cd sites-available
-curl -o 000-default.conf 'https://raw.githubusercontent.com/wellborgmann/checkuser2/main/000-default.conf'
+curl -o 000-default.conf 'https://raw.githubusercontent.com/wellborgmann/checkuserUbuntu18/main/000-default.conf'
 sudo service apache2 restart

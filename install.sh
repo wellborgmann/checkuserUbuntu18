@@ -3,7 +3,7 @@
 # Created by: @Dev_apollo404
 
 echo -e "\n\033[1;36m####################### \033[1;33mCRIADO POR @Dev_apollo404 \033[1;36m######################  \033[0m"
-
+figlet -t -k -w 100 CHECKUSER @Dev_apollo404
 echo -e "\n\033[1;36mINSTALANDO O APACHE2 \033[1;33mAGUARDE...\033[0m"
 
 
@@ -32,5 +32,5 @@ cd sites-available
 curl -o 000-default.conf 'https://raw.githubusercontent.com/wellborgmann/checkuserUbuntu18/main/000-default.conf' > /dev/null 2>&1
 service apache2 restart
 cd ../../../
-echo -e "\n\033[1;36m####################### \033[1;33mCRIADO POR @Dev_apollo404 \033[1;36m######################  \033[0m"
+figlet -t -k -w 100 CHECKUSER @Dev_apollo404
 echo -e "\n\033[1;36m#################### \033[1;33m CHECKUSER INSTALADO COM SUCESSO \033[1;36m###################  \033[0m"

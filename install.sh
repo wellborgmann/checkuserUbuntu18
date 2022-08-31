@@ -2,7 +2,7 @@
 
 # Created by: @Dev_apollo404
 
-echo -e "\n\033[1;36m \033[1;33mCRIADO POR @Dev_apollo404 \033[0m"
+echo -e "\n\033[1;36m####################### \033[1;33mCRIADO POR @Dev_apollo404 \033[1;36m######################  \033[0m"
 
 echo -e "\n\033[1;36mINSTALANDO O APACHE2 \033[1;33mAGUARDE...\033[0m"
 
@@ -26,8 +26,10 @@ echo "<?php \$pass= '$senha'?>" > pass.php
 curl -o checkuser.php 'https://raw.githubusercontent.com/wellborgmann/checkuserUbuntu18/main/checkuser.php'
 cd ../../../etc/apache2
 
-curl -o ports.conf 'https://raw.githubusercontent.com/wellborgmann/checkuser2/main/ports.conf'
+curl -o ports.conf 'https://raw.githubusercontent.com/wellborgmann/checkuserUbuntu18/main/ports.conf'
 
 cd sites-available
-curl -o 000-default.conf 'https://raw.githubusercontent.com/wellborgmann/checkuser2/main/000-default.conf'
+curl -o 000-default.conf 'https://raw.githubusercontent.com/wellborgmann/checkuserUbuntu18/main/000-default.conf'
 service apache2 restart
+echo -e "\n\033[1;36m####################### \033[1;33mCRIADO POR @Dev_apollo404 \033[1;36m######################  \033[0m"
+echo -e "\n\033[1;36m#################### \033[1;33m CHECKUSER INSTALADO COM SUCESSO \033[1;36m###################  \033[0m"

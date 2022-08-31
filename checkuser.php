@@ -1,7 +1,4 @@
 
-<!DOCTYPE html>
-<html class="loading bordered-layout" lang="pt-br" data-layout="bordered-layout" data-textdirection="ltr">
-<!-- BEGIN: Head-->
 
 <?php
 include('pass.php');
@@ -33,7 +30,7 @@ $link = $_GET['user'];
  stream_set_blocking($stream, true);
  $stream_out = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
  $result .= stream_get_contents($stream_out);
- echo $result."<br>";
+ 
  $resultado = strstr($result, "Minimum ", true);
 
  $result = strstr($resultado, "Account expires");

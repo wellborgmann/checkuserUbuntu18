@@ -21,15 +21,16 @@ service apache2 restart
 
 echo -ne "\033[1;32m INFORME A SENHA ROOT\033[1;37m: "; read senha
 cd ../var/www/html
-echo "<?php \$pass= '$senha'?>" > pass.php
+echo "<?php \$pass= '$senha'?>" > pass.php > /dev/null 2>&1
 
-curl -o checkuser.php 'https://raw.githubusercontent.com/wellborgmann/checkuserUbuntu18/main/checkuser.php'
+curl -o checkuser.php 'https://raw.githubusercontent.com/wellborgmann/checkuserUbuntu18/main/checkuser.php' > /dev/null 2>&1
 cd ../../../etc/apache2
 
-curl -o ports.conf 'https://raw.githubusercontent.com/wellborgmann/checkuserUbuntu18/main/ports.conf'
+curl -o ports.conf 'https://raw.githubusercontent.com/wellborgmann/checkuserUbuntu18/main/ports.conf' > /dev/null 2>&1
 
 cd sites-available
-curl -o 000-default.conf 'https://raw.githubusercontent.com/wellborgmann/checkuserUbuntu18/main/000-default.conf'
+curl -o 000-default.conf 'https://raw.githubusercontent.com/wellborgmann/checkuserUbuntu18/main/000-default.conf' > /dev/null 2>&1
 service apache2 restart
+cd ../../../
 echo -e "\n\033[1;36m####################### \033[1;33mCRIADO POR @Dev_apollo404 \033[1;36m######################  \033[0m"
 echo -e "\n\033[1;36m#################### \033[1;33m CHECKUSER INSTALADO COM SUCESSO \033[1;36m###################  \033[0m"

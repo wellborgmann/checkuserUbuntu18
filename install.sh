@@ -2,6 +2,8 @@
 
 # Created by: @Dev_apollo404
 
+echo -ne "\033[1;32m criado por @Dev_apollo404\033[1;37m: ";
+
 echo -e "\n\033[1;36mINSTALANDO O APACHE2 \033[1;33mAGUARDE...\033[0m"
 
 

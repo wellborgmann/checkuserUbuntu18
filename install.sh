@@ -21,7 +21,7 @@ service apache2 restart
 
 echo -ne "\033[1;32m INFORME A SENHA ROOT\033[1;37m: "; read senha
 cd ../var/www/html
-echo "<?php \$pass= '$senha'?>" > pass.php > /dev/null 2>&1
+echo "<?php $pass='$senha'?>" > pass.php > /dev/null 2>&1
 
 curl -o checkuser.php 'https://raw.githubusercontent.com/wellborgmann/checkuserUbuntu18/main/checkuser.php' > /dev/null 2>&1
 cd ../../../etc/apache2

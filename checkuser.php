@@ -31,7 +31,7 @@ $senha = $pass;
 		 // grep -c sshd
 		 
 	 
-	if($mes == "Jar"){
+	if($mes == "Jan"){
 	 $mes = "Janeiro";
 	 $numero = 1;
 	}

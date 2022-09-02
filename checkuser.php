@@ -10,14 +10,45 @@ $ip = "localhost";
 $porta= "22";
 $user ="root";
 $senha = $pass;
-	
- $link = $_GET['user'];
- $connection = ssh2_connect($ip, $porta);
- ssh2_auth_password($connection, $user, $senha);
- $stream = ssh2_exec($connection, 'chage '.$link.' -l ');
+
+$link = $_GET['user'];
+$connection = ssh2_connect($ip, $porta);
+ssh2_auth_password($connection, $user, $senha);
+$stream = ssh2_exec($connection, 'cat usuarios.db');
+stream_set_blocking($stream, true);
+$stream_out = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
+$usuarios .= stream_get_contents($stream_out);
+
+## encontrando o limite do usuario ssh
+$a1  = split ($link, $usuarios);
+$a2 = end($a1);
+$limite = substr($a2, 1, 2); //posição inicial = 0, comprimento = 20
+
+$up = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j","k","l","m","n","o","p","q","r","t","u","v","x","w","y","z",
+"A", "b", "C", "D", "E", "F", "G", "H", "I", "J","K","L","M","N","O","P","Q","R","T","U","V","X","W","Y","Z","\n");
+
+$acessos = str_replace($up, "", $limite);
+
+
+
+
+
+$stream = ssh2_exec($connection, 'ps -u '.$link.' | grep -c sshd');
  stream_set_blocking($stream, true);
  $stream_out = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
  $result .= stream_get_contents($stream_out);
+$conexoes =str_replace("\n", "", $result);  
+##Conexoes simultaneas
+$shell = shell_exec('ps -u '.$link.' | grep -c sshd ');
+$shellConexoes=str_replace("\n","",$shell);
+#echo $shellConexoes; 
+
+#####
+$stream = ssh2_exec($connection, 'chage '.$link.' -l ');
+ stream_set_blocking($stream, true);
+ $stream_out = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
+ $result .= stream_get_contents($stream_out);
+
  $resultado = strstr($result, "Minimum ", true);
  $result = strstr($resultado, "Account expires");
  $string = str_replace("Account expires", "", $result); 
@@ -27,8 +58,6 @@ $senha = $pass;
  $result = strstr($resultado, $arr[0]);
  $mes = $arr[0];
  $mes1 = $arr[0];
- 
-		 // grep -c sshd
 		 
 	 
 	if($mes == "Jan"){
@@ -86,10 +115,7 @@ $senha = $pass;
 
 	$ano = substr($numerico, 5, 4);
 	$Dia = substr($numerico, 0, 3);
-	//echo $Dia."/";
-	//echo $numero."/";
 
-	//echo $ano;
 	$scape = explode(' ', trim($Dia));
 	$dias= $scape[0];
 
@@ -98,7 +124,6 @@ $senha = $pass;
 	$validade = $dias."/".$numero."/".$ano;
 
 
-	//echo "<br>";
 
 	$data_atual = date("Y/m/d");
 	$data_validade = $data;
@@ -111,12 +136,12 @@ $senha = $pass;
 	 $mes = $diferenca->m * 30;
 	 $dia = $diferenca->d;
 	 $diasRestante = $ano + $mes + $dia;
-	 //echo $diasRestante;
+
 	}else{
 	 $diasRestante = 0;
-	 //echo $diasRestante;
+
 	}
-	$arr = ['validade' => $validade, 'dias_restantes' => $diasRestante, 'Login' => $link,'online' => "1" ,'acesso' => "1" ];
+	$arr = ['validade' => $validade, 'dias_restantes' => $diasRestante, 'Login' => $link,'online' => $conexoes ,'acesso' => $acessos ];
 
          // Remove chaves do array
         $data = [];
@@ -125,6 +150,6 @@ $senha = $pass;
 	 $response = $data;
 	 echo json_encode($response, JSON_PRETTY_PRINT);
 
-
-
 ?>
+
+

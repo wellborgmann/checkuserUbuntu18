@@ -1,15 +1,11 @@
-
-
 <?php
 include('pass.php');
-
-header('Content-Type: text/event-stream');
-header('Cache-Control: no-cache');
-
 $ip = "localhost";
 $porta= "22";
 $user ="root";
 $senha = $pass;
+header('Access-Control-Allow-Origin: *');
+header("Content-Type:application/json");
 
 $link = $_GET['user'];
 $connection = ssh2_connect($ip, $porta);
@@ -18,6 +14,22 @@ $stream = ssh2_exec($connection, 'cat usuarios.db');
 stream_set_blocking($stream, true);
 $stream_out = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
 $usuarios .= stream_get_contents($stream_out);
+
+
+$teste = str_replace("1", ",", $usuarios);
+$teste2 = str_replace(" ", "", $teste);
+#echo $teste2;
+
+$connection = ssh2_connect($ip, $porta);
+ssh2_auth_password($connection, $user, $senha);
+$stream = ssh2_exec($connection, 'ps aux | grep priv | grep Ss');
+stream_set_blocking($stream, true);
+$stream_out = ssh2_fetch_stream($stream, SSH2_STREAM_STDIO);
+$usuarios2 .= stream_get_contents($stream_out);
+
+//echo $usuarios2;
+
+
 
 ## encontrando o limite do usuario ssh
 $a1  = split ($link, $usuarios);
@@ -28,8 +40,6 @@ $up = array("a", "b", "c", "d", "e", "f", "g", "h", "i", "j","k","l","m","n","o"
 "A", "b", "C", "D", "E", "F", "G", "H", "I", "J","K","L","M","N","O","P","Q","R","T","U","V","X","W","Y","Z","\n");
 
 $acessos = str_replace($up, "", $limite);
-
-
 
 
 
@@ -121,7 +131,7 @@ $stream = ssh2_exec($connection, 'chage '.$link.' -l ');
 
 	$data = $ano."/".$numero."/".$dias;
 
-	$validade = $dias."/".$numero."/".$ano;
+	$validade = $dias."/0".$numero."/".$ano;
 
 
 
@@ -141,7 +151,16 @@ $stream = ssh2_exec($connection, 'chage '.$link.' -l ');
 	 $diasRestante = 0;
 
 	}
-	$arr = ['validade' => $validade, 'dias_restantes' => $diasRestante, 'Login' => $link,'online' => $conexoes ,'acesso' => $acessos ];
+    $conexoes = intval($conexoes);
+
+	$oldDate = strtotime($data);
+
+$newDate = date('d/m/Y',$oldDate);
+
+
+	$arr = ['login' => $link,'acesso' => $acessos ,'validade' => $newDate, 'dias_restantes' => $diasRestante, 'online' => $conexoes ];
+
+
 
          // Remove chaves do array
         $data = [];
@@ -150,6 +169,6 @@ $stream = ssh2_exec($connection, 'chage '.$link.' -l ');
 	 $response = $data;
 	 echo json_encode($response, JSON_PRETTY_PRINT);
 
+###BY Apollo404
+
 ?>
-
-
